@@ -128,8 +128,8 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 # For Heroku deployment
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static_cdn', 'static_root')
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static_cdn', 'media_root')
+STATIC_ROOT = 'staticfile'
+MEDIA_ROOT = 'imgfile'
 
 AUTH_USER_MODEL = 'account.User'
 

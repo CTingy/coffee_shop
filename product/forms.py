@@ -5,12 +5,11 @@ from product.models import Product
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['title', 'content', 'price', 'image']
+        fields = ['title', 'content', 'price']
         labels = {
             'title': '商品名稱',
             'content': '商品描述',
             'price': '價錢',
-            'image': '商品圖片',
         }
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
