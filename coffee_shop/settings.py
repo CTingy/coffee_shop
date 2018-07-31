@@ -69,7 +69,7 @@ WSGI_APPLICATION = 'coffee_shop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-if DEBUG:  # Running on the development environment
+if DEBUG:   # Running on the development environment
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -80,13 +80,13 @@ if DEBUG:  # Running on the development environment
             'PORT': '',
         }
     }
-else:   # Running on Heroku
+else:  # Running on Heroku
     # Parse database configuration from $DATABASE_URL
     import dj_database_url
+
     DATABASES = {'default': dj_database_url.config()}
     # Honor the 'X-Forwarded-Proto' header for request.is_secure()
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators

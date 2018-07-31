@@ -17,6 +17,6 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "coffee_shop.settings")
 
 application = get_wsgi_application()
 
-if not DEBUG:
+if not DEBUG:    # Running on Heroku
     from dj_static import Cling
     application = Cling(get_wsgi_application())
