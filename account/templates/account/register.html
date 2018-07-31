@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+{% load staticfiles %}
+
+{% block heading %}註冊{% endblock %}
+{% block content %}
+
+<section class="page-section cta">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-9 mx-auto">
+        <div class="bg-faded rounded p-5">
+          <form method="post" action="{% url 'account:register' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <br>
+            <div class="text-center">
+              <input class="btn btn-primary" type="submit" value="送出">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

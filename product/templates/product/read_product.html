@@ -1,0 +1,75 @@
+{% extends 'main/base.html' %}
+{% load staticfiles %}
+
+{% block heading %}商品資訊{% endblock %}
+{% block content %}
+
+<section class="page-section about-heading">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-12 col-lg-10 mx-auto">
+        <div class="card bg-faded rounded p-5 mb-4">
+          {% if user.is_superuser %}
+          <div class="mb-3">
+            <a class="btn btn-info" href="{% url 'product:update_product' product.id %}">修改</a>
+          </div>
+          {% endif %}
+          <div class="ml-auto">
+          {% include 'cart/create_cart.html' with product=product %}
+          </div>
+          <h3>{{ product.title }}</h3>
+          {% if product.image %}
+          <img class="rounded img-fluid my-3 mx-auto" width="800px" src="{{ product.image.url }}" alt="{{ product.image }}">
+          {% endif %}
+          <p class="">{{ product.content|linebreaks }}</p>
+        </div>
+        <div class="card bg-faded rounded p-5">
+          <h3 class="mb-5">留言區</h3>
+          {% if not product.comment_set.all %}
+          <p>目前此商品沒有留言</p>
+          {% endif %}
+          <div class="row">
+          {% for comment in product.comment_set.all %}
+            <div class="col-lg-2 mb-3" style="text-align:right">
+              <span><b>{{ comment.user.username|truncatechars_html:14 }}</b></span>
+              <p style="color:gray;"><small><strong>{{ comment.pub_time|date:'Y-m-d H:i'}}</strong></small></p>
+            </div>
+            <div class="col-lg-9 mb-3">
+              <p>{{ comment.content }}</p>
+              {% if comment.user == user %}
+              <form method="post" action="{% url 'product:delete_comment' comment.id %}">
+                {% csrf_token %}
+                <input class="btn btn-outline-danger deleteConfirm" type="submit" value="刪除">
+              </form>
+              {% endif %}
+              <hr>
+            </div>
+          {% endfor %}
+          {% if user.is_authenticated %}
+          <div class="col-lg-2 mb-4" style="text-align:right">
+            <span><b>我要留言：</b></span>
+          </div>
+            <div class="col-lg-9 mb-4">
+              <form class="form" method="post" action="{% url 'product:create_comment' product.id %}">
+                {% csrf_token %}
+                <div class="input-group">
+                  <textarea class="form-control" name="comment" placeholder="留言 ..."></textarea>
+                  <div class="input-group-append">
+                    <input class="btn btn-primary" type="submit" value="送出">
+                  </div>
+                </div>
+              </form>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+{% block script %}
+<script src={% static 'main/js/confirm_delete.js' %}></script>
+<script src={% static 'main/js/cart.js' %}></script>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'main/base.html' %}
+
+{% block heading %}
+  {% if productForm.instance.id %}
+    修改商品
+  {% else %}
+    新增商品
+  {% endif %}
+{% endblock %}
+{% block content %}
+<section class="page-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-9 col-lg-10 mx-auto">
+        <div class="bg-faded rounded p-5">
+          {% if productForm.instance.id %}
+          <form method="post" action="{% url 'product:update_product' productForm.instance.id %}">
+          {% else %}
+          <form method="post" action="{% url 'product:create_product' %}">
+          {% endif %}
+            {% csrf_token %}
+            {{ productForm.as_p }}
+            <input class="btn btn-primary mt-3" type="submit" value="送出">
+            <a class="btn btn-outline-secondary mt-3" href="{% url 'product:product' %}">放棄</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  {% endblock %}

@@ -1,0 +1,22 @@
+"""
+WSGI config for coffee_shop project.
+
+It exposes the WSGI callable as a module-level variable named ``application``.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/2.0/howto/deployment/wsgi/
+"""
+
+import os
+from django.core.wsgi import get_wsgi_application
+
+from coffee_shop.settings import DEBUG
+
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "coffee_shop.settings")
+
+application = get_wsgi_application()
+
+if not DEBUG:
+    from dj_static import Cling
+    application = Cling(get_wsgi_application())

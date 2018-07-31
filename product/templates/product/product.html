@@ -1,0 +1,71 @@
+{% extends 'main/base.html' %}
+{% load staticfiles %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'product/css/product.css' %}">
+{% endblock %}
+{% block heading %}商品{% endblock %}
+{% block content %}
+
+<!-- Page Content -->
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4 col-md-6 mb-4 mt-5 ml-auto">
+      {% include 'search/search_form.html' %}
+    </div>
+
+    <!-- /.col-lg-3 -->
+    <div class="col-lg-12">
+      <div class="row">
+        {% if user.is_superuser %}
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card h-100 bg-faded">
+            <p><a class="btn btn-success" href="{% url 'product:create_product' %}">新增商品</a></p>
+          </div>
+        </div>
+        {% endif %}
+        {% for product in products %}
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card h-100 bg-faded">
+            {% if user.is_superuser %}
+            <div class="row">
+              <div class="col-2">
+                <a href="{% url 'product:update_product' product.id %}" class="btn btn-info">修改</a>
+              </div>
+              <div class="col-2">
+                <form method="post" action="{% url 'product:delete_product' product.id %}">
+                  {% csrf_token %}
+                  <input class="btn btn-danger deleteConfirm" type="submit" value="刪除">
+                </form>
+              </div>
+            </div>
+            {% endif %}
+            {% if product.image %}
+            <a href="{{ product.get_absolute_url }}">
+              <img class="card-img-top" src="{{ product.image.url }}" alt="{{ product.image }}">
+            </a>
+            {% endif %}
+            <div class="card-body">
+              <h4 class="card-title">
+                <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+              </h4>
+              <h5>NT${{ product.price }}</h5>
+              <p class="card-text">{{ product.content|linebreaks|truncatechars_html:40 }}</p>
+              {% include 'cart/create_cart.html' with product=product %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.col-lg-12 -->
+  </div>
+  <!-- /.row -->
+</div>
+<!-- /.container -->
+{% endblock %}
+
+{% block script %}
+<script src={% static 'main/js/confirm_delete.js' %}></script>
+<script src={% static 'main/js/cart.js' %}></script>
+{% endblock %}

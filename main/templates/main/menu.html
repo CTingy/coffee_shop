@@ -1,0 +1,63 @@
+{% url 'main' as main_url %}
+{% url 'board:board' as board_url %}
+{% url 'product:product' as product_url %}
+{% url 'account:login' as login_url %}
+{% url 'account:logout' as logout_url %}
+{% url 'account:register' as register_url %}
+{% url 'cart:home' as cart1 %}
+{% url 'cart:update_order' as cart2 %}
+{% url 'cart:check_order' as cart3 %}
+{% url 'cart:orders' as orders %}
+{% url 'account:profile' as profile_url %}
+{% url 'contact:contact' as contact_url %}
+
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">咖啡烘焙坊</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item {% if request.path == main_url %}active{% endif %} px-lg-4">
+          <a class="nav-link text-expanded" href="{{ main_url }}">關於
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item {% if request.path == board_url %}active{% endif %} px-lg-4">
+          <a class="nav-link text-expanded" href="{{ board_url }}">公告</a>
+        </li>
+        <li class="nav-item {% if request.path == product_url %}active{% endif %} px-lg-4">
+          <a class="nav-link text-expanded" href="{{ product_url }}">商品</a>
+        </li>
+        <li class="nav-item {% if request.path == contact_url %}active{% endif %} px-lg-4">
+          <a class="nav-link text-expanded" href="{{ contact_url }}">聯絡我們</a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item {% if request.path == logout_url %}active{% endif %} px-lg-4">
+          <a class="nav-link text-expanded" href="{{ logout_url }}">登出 ({{ user.username }})</a>
+        </li>
+        {% else %}
+        <li class="nav-item {% if request.path == login_url or request.path == register_url %}active{% endif %} px-lg-4">
+          <a class="nav-link text-expanded" href="{{ login_url }}">登入/註冊</a>
+        </li>
+        {% endif %}
+        <li class="nav-item  px-lg-4 dropdown {% if request.path == orders or request.path == profile_url %}active{% endif %}">
+          <a class="nav-link text-expanded dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            會員中心
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{{ profile_url }}">我的帳號</a>
+            <a class="dropdown-item" href="{{ cart1 }}">檢視購物車</a>
+            <a class="dropdown-item" href="{{ orders }}">檢視/刪除訂單</a>
+            <a class="dropdown-item" href="{{ contact_url }}">聯絡我們</a>
+          </div>
+        <li class="nav-item px-lg-4 {% if request.path == cart1 or request.path == cart2 or request.path == cart3 %}active{% endif %}">
+        <a class="nav-link text-expanded" href="{{ cart1 }}"><span class="navbar-cart-count">{{ request.session.cart_items }}</span> <i class="fas fa-shopping-cart"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

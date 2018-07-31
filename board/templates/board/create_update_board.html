@@ -1,0 +1,34 @@
+{% extends 'main/base.html' %}
+{% load staticfiles %}
+
+{% block heading %}
+  {% if board_form.instance.id %}
+    修改公告
+  {% else %}
+    新增公告
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="page-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-9 col-lg-10 mx-auto">
+        <div class="bg-faded rounded p-5">
+          {% if form.instance.id %}
+          <form method="post" action="{% url 'board:update_board' form.instance.id %}">
+          {% else %}
+          <form method="post" action="{% url 'board:create_board' %}">
+          {% endif %}
+            {% csrf_token %}
+            {{ form.as_p }}
+            <br>
+            <input class="btn btn-primary" type="submit" value="送出">
+            <a class="btn btn-outline-secondary" href="{% url 'board:board' %}">放棄</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

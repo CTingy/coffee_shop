@@ -1,0 +1,27 @@
+{% extends 'main/base.html' %}
+{% load staticfiles %}
+
+{% block heading %}聯絡我們{% endblock %}
+{% block content %}
+
+<section class="page-section cta">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-9 mx-auto">
+        <h4 class="mb-5 text-center" style="color:white;">請留言填寫問題，我們會盡快以電子郵件回覆您</h4>
+        <div class="bg-faded rounded p-5">
+          <form method="post" action="{% url 'contact:contact' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <br>
+            <div class="text-center">
+              <input class="btn btn-primary" type="submit" value="送出">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

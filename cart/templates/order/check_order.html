@@ -1,0 +1,99 @@
+{% extends 'main/base.html' %}
+
+{% block heading %}購物車結帳{% endblock %}
+
+{% block content %}
+<section class="page-section cta">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-9 mx-auto">
+        <div class="bg-faded rounded p-5">
+          <h3 class="mb-5 text-center">請確認以下內容</h3>
+          <h4 class="mb-4">訂購商品</h4>
+          <table class="table mb-4">
+            <thead class="thead">
+            <tr>
+              <th scope="col">商品名稱</th>
+              <th scope="col">單價</th>
+              <th scope="col">數量</th>
+              <th scope="col">金額</th>
+            </tr>
+            </thead>
+            <tbody>
+              {% for cart in order.carts.all %}
+              <tr>
+                <td><a href="{{ cart.product.get_absolute_url }}">{{ cart.product.title }}</a></td>
+                <td>{{ cart.product.price }}</td>
+                <td>{{ cart.quantity }}</td>
+                <td>{{ cart.total }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <div class="text-right">
+            <p><b>總價：</b> {{ order.subtotal }}元</p>
+            <p><b>運費：</b> {{ order.shipping }}元</p>
+            <p><b>總金額：</b> {{ order.total }}元</p>
+          </div>
+          <hr class="my-5">
+          <h4 class="mb-4">訂購資訊</h4>
+          <table class="table mb-4">
+            <tbody>
+              <tr>
+                <td>收件人</td>
+                <td>{{ order.name }}</td>
+              </tr>
+              <tr>
+                <td>收件人電話</td>
+                <td>{{ order.phone }}</td>
+              </tr>
+              <tr>
+                <td>付款方式</td>
+                <td>{{ order.pay }}</td>
+              </tr>
+              {% if order.address %}
+              <tr>
+                <td>收件門市</td>
+                <td>{{ order.address }}</td>
+              </tr>
+              {% endif %}
+            </tbody>
+          </table>
+          <div class="text-center mt-5">
+            <form action="{% url 'cart:check_order' %}" method="post">
+              {% csrf_token %}
+              <a class="btn btn-primary" href="{% url 'cart:update_order' %}">上一步</a>
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                訂購
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">確認訂購</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      咖啡豆烘焙商品採顧客下標後進生豆並烘焙，約需等候一至二週不等，請同意後再下標。訂單送出後不得修改，請確認訂購資訊正確再送出
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
+                      <input class="btn btn-outline-success" type="submit" value="確認訂購">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

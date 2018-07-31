@@ -1,0 +1,63 @@
+{% extends 'main/base.html' %}
+{% load staticfiles %}
+
+{% block heading %}購物車{% endblock %}
+
+{% block content %}
+<section class="page-section cta">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-9 mx-auto">
+        <div class="bg-faded rounded p-5">
+          {% if order.carts.exists %}
+          <h2>購物車清單</h2>
+          <br><br>
+          <table class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+              <th scope="col">商品名稱</th>
+              <th scope="col">單價</th>
+              <th scope="col">數量</th>
+              <th scope="col">金額</th>
+              <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+              {% for cart in order.carts.all %}
+              <tr class="{{ cart.id }}">
+                <td><a href="{{ cart.product.get_absolute_url }}">{{ cart.product.title }}</a></td>
+                <td>{{ cart.product.price }}</td>
+                <td>
+                  <input name="{{ cart.id }}" data-href="{% url 'cart:update' cart.id %}" class="input-ajax form-control btn-sm inlineBlock" style="width:60px;" type="number" min="1" max="10" value="{{ cart.quantity }}">
+                </td>
+                <td id="{{ cart.id }}" class="{{ cart.total }}">{{ cart.total }}</td>
+                <td>
+                  <input name="{{ cart.id }}" data-href="{% url 'cart:delete' cart.id %}" style="width:45px" class="btn btn-outline-danger btn-sm deleteConfirm" value="刪除">
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <br>
+          <div class="text-center">
+            <form action="{% url 'cart:update_order' %}" method="get">
+              <input type="submit" class="btn btn-primary" name="self" value="面交">
+              <input type="submit" class="btn btn-primary" name="shop" value="超商取貨付款">
+            </form>
+          </div>
+          {% else %}
+          <h2>購物車是空的</h2>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+{% block script %}
+
+
+<script src={% static 'main/js/base.js' %}></script>
+<script src={% static 'main/js/cart.js' %}></script>
+
+{% endblock %}

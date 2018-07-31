@@ -1,0 +1,80 @@
+{% extends 'main/base.html' %}
+{% load staticfiles %}
+
+{% block heading %}首頁{% endblock %}
+
+{% block content %}
+    <section class="page-section">
+      <div class="container">
+        <div class="product-item">
+          <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="{% static 'main/img/03.jpg' %}" width="850px">
+          <div class="product-item-description d-flex mr-auto">
+            <div class="bg-faded p-5 rounded">
+              <p class="mb-0">
+                <b>阿輝咖啡烘焙</b>為一販賣精心烘焙咖啡豆之賣場，<br>
+                為維持新鮮度，<br>
+                均採下標後才進貨生豆並烘焙，<br>
+                整個流程需花費一到兩週不等，<br>
+                請買家耐心等待。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section">
+      <div class="container">
+        <div class="product-item">
+          <div class="product-item-title d-flex">
+            <div class="bg-faded p-5 d-flex mr-auto rounded">
+              <h2 class="section-heading mb-0">
+                <span class="section-heading-lower">生豆品質</span>
+              </h2>
+            </div>
+          </div>
+          <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="{% static 'main/img/04.png' %}" alt="">
+          <div class="product-item-description d-flex ml-auto">
+            <div class="bg-faded p-5 rounded">
+              <p class="mb-0">
+                本賣場所有生豆均來自<a href="http://www.bvcoffee.com.tw/about.php">宸嶧國際有限公司</a>
+                該公司每批生豆均會提供國際認證標準之生豆評分，
+                阿輝咖啡烘焙以此為參考，能穩定的掌握生豆品質。<br><br>
+                生豆進貨後，
+                阿輝烘焙均會挑選生豆，
+                將瑕疵豆挑除後才進行烘焙，
+                以維護品質。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section">
+      <div class="container">
+        <div class="product-item">
+          <div class="product-item-title d-flex">
+            <div class="bg-faded p-5 d-flex ml-auto rounded">
+              <h2 class="section-heading mb-0">
+                <span class="section-heading-lower">烘焙度與杯測</span>
+              </h2>
+            </div>
+          </div>
+          <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="{% static 'main/img/00.jpg' %}" alt="">
+          <div class="product-item-description d-flex mr-auto">
+            <div class="bg-faded p-5 rounded">
+              <p class="mb-0">
+                本賣場提供的烘焙度為中淺烘焙，也可做些許客製化調整，
+                請使用<a href="{% url 'contact:contact' %}">聯絡我們</a>以了解更多。
+                <br>
+                阿輝咖啡烘焙的烘焙手法歷經多次杯測師鑑定之後
+                固定下最好的流程，能提供穩定且高品質的產品。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}
+

@@ -1,0 +1,24 @@
+.productContent {
+  padding: 20px;
+  background-color: #B8AA95;
+  border: thin solid gray;
+  border-radius: 10px;
+}
+
+.commentDiv {
+  margin-top: 1em;
+}
+
+.comment, .commentAuthor {
+  font-size: 0.8em;
+}
+
+.commentAuthor {
+  font-weight: bold;
+  color: black;
+}
+
+.commentTime {
+  font-size: 0.6em;
+  color: black;
+}

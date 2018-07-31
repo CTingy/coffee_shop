@@ -1,0 +1,102 @@
+{% extends 'main/base.html' %}
+{% load staticfiles %}
+{% block heading %}檢視訂單{% endblock %}
+
+{% block content %}
+<section class="page-section cta">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-9 mx-auto">
+        <div class="bg-faded rounded p-5">
+          <h3 class="mb-5">訂購資訊</h3>
+          <form>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label"><b>訂單編號： </b></label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" value="{{ order.id }}">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label"><b>訂購時間： </b></label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" value="{{ order.timestamp }}">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label"><b>收件人： </b></label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" value="{{ order.name }}">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label"><b>收件人電話： </b></label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" value="{{ order.phone }}">
+              </div>
+            </div>
+            {% if order.address %}
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label"><b>收件地址： </b></label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" value="{{ order.address }}">
+              </div>
+            </div>
+            {% endif %}
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label"><b>付款方式： </b></label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" value="{{ order.pay }}">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label"><b>訂單狀態： </b></label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" value="{{ order.status }}">
+              </div>
+            </div>
+          </form>
+          <hr class="my-5">
+          <h3 class="mb-5">購物車內容</h3>
+          <table class="table table-hover mb-4">
+            <thead class="thead">
+            <tr>
+              <th scope="col">商品名稱</th>
+              <th scope="col">單價</th>
+              <th scope="col">數量</th>
+              <th scope="col">金額</th>
+            </tr>
+            </thead>
+            <tbody>
+              {% for cart in order.carts.all %}
+              <tr>
+                <td><a href="{{ cart.product.get_absolute_url }}">{{ cart.product.title }}</a></td>
+                <td>{{ cart.product.price }}</td>
+                <td>{{ cart.quantity }}</td>
+                <td>{{ cart.total }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <div class="text-right">
+            <p><b>總價：</b> {{ order.subtotal }}元</p>
+            <p><b>運費：</b> {{ order.shipping }}元</p>
+            <p><b>總金額：</b> {{ order.total }}元</p>
+          </div>
+          <div class="text-center">
+            <form action="{% url 'cart:order_delete' order.id %}" method="post" class="mt-5">
+              {% csrf_token %}
+              <a href="{% url 'cart:orders' %}" class="btn btn-info">回上一頁</a>
+              <input type="submit" class="btn btn-danger deleteConfirm" value="刪除此訂單">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% block script %}
+<script src={% static 'main/js/confirm_delete.js' %}></script>
+{% endblock %}
+
+{% endblock %}

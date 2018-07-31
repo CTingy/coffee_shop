@@ -1,0 +1,55 @@
+{% extends 'main/base.html' %}
+{% load staticfiles %}
+
+{% block heading %}我的帳號{% endblock %}
+{% block content %}
+
+<section class="page-section cta">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-9 mx-auto">
+        <div class="bg-faded rounded p-5">
+          <form>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label"><b>帳號： </b></label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" value="{{ user.username }}">
+              </div>
+            </div>
+            {% if user.fullname %}
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label"><b>姓名： </b></label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" value="{{ user.fullname }}">
+              </div>
+            </div>
+            {% endif %}
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label"><b>電子信箱： </b></label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" value="{{ user.email }}">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label"><b>註冊時間： </b></label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" value="{{ user.date_joined }}">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label"><b>上次登入： </b></label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" value="{{ user.last_login }}">
+              </div>
+            </div>
+            <div class="text-center">
+              <a href="{% url 'cart:orders' %}" class="mt-5 btn btn-primary">檢視歷史訂單</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

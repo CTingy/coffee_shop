@@ -1,0 +1,55 @@
+{% extends 'main/base.html' %}
+{% load staticfiles %}
+
+{% block heading %}公告{% endblock %}
+
+{% block content %}
+<section class="page-section about-heading">
+  <div class="container">
+    <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0" src="{% static 'main/img/01.png' %}" alt="">
+    <div class="about-heading-content">
+      <div class="row">
+        <div class="col-xl-10 col-lg-10 mx-auto">
+          {% if user.is_superuser %}
+          <div class="bg-faded rounded p-5">
+            <p><a class="btn btn-success" href="{% url 'board:create_board' %}">新增公告</a></p>
+          </div>
+          {% endif %}
+          <br><br>
+          {% for board in boards %}
+          <div class="bg-faded rounded p-5">
+            {% if user.is_superuser %}
+            <div class="inlineBlock">
+              <a class="btn btn-info" href="{% url 'board:update_board' board.id %}">修改</a>
+            </div>
+            <div class="inlineBlock">
+              <form class="inlineBlock" method="post" action="{% url 'board:delete_board' board.id %}">
+                {% csrf_token %}
+                <input class="btn btn-outline-danger deleteConfirm" type="submit" value="刪除">
+              </form>
+            </div>
+            <br><br>
+            {% endif %}
+            <h3 class="section-heading mb-4">
+              <span class="section-heading-upper">{{ board.pub_time|date:'Y-m-d H:i' }}</span>
+            </h3>
+            <hr>
+            <h2>
+              <span class="section-heading-lower">{{ board.title }}</span>
+            </h2>
+            {{ board.content|linebreaks }}
+          </div>
+          <br>
+          <br>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% block script %}
+<script src={% static 'main/js/confirm_delete.js' %}></script>
+{% endblock %}
+
+{% endblock %}

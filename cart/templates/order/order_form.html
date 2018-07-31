@@ -1,0 +1,80 @@
+{% extends 'main/base.html' %}
+{% load staticfiles %}
+{% block heading %}購物車結帳{% endblock %}
+
+{% block content %}
+<section class="page-section cta">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-9 mx-auto">
+        <div class="bg-faded rounded p-5">
+          <h3 class="mb-5">購物車清單</h3>
+          <table class="table table-hover mb-4">
+            <thead class="thead">
+            <tr>
+              <th scope="col">商品名稱</th>
+              <th scope="col">單價</th>
+              <th scope="col">數量</th>
+              <th scope="col">金額</th>
+            </tr>
+            </thead>
+            <tbody>
+              {% for cart in order.carts.all %}
+              <tr>
+                <td><a href="{{ cart.product.get_absolute_url }}">{{ cart.product.title }}</a></td>
+                <td>{{ cart.product.price }}</td>
+                <td>{{ cart.quantity }}</td>
+                <td>{{ cart.total }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <div class="text-right">
+            <p><b>總價：</b> {{ order.subtotal }}元</p>
+            <p><b>運費：</b> {{ order.shipping }}元</p>
+            <p><b>總金額：</b> {{ order.total }}元</p>
+            {% if not request.GET.self %}
+            <p class="inlineBlock"><b>寄送地址：</b></p>
+            <form class="order-form-ajax inlineBlock" action="http://map.ezship.com.tw/ezship_map_web.jsp" method="get">
+              <input type="hidden" name="suID" value="ke1905ro@yahoo.com">
+              <input type="hidden" name="processID" value="kiroLY">
+              <input type="hidden" name="stCate" value="">
+              <input type="hidden" name="stCode" value="">
+              <input type="hidden" name="rtURL" value="https://www.google.com.tw/webhp">
+              <input type="hidden" name="webPara" value="">
+              <input type="submit" value="選取店家" class="btn btn-success btn-sm">
+            </form>
+            {% endif %}
+          </div>
+          <hr class="my-5">
+          <h3 class="mb-5">訂購資訊</h3>
+          <form action="{% url 'cart:update_order' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="username">訂購帳號：</label>
+              <input type="text" class="form-control" id="username" value="{{ order.user.username }}" readonly>
+            </div>
+            {{ form.as_p }}
+            {% if not request.GET.self %}
+            <div class="form-group" for="address">
+              {% if order.address %}
+              <label>取貨門市：</label>
+              {{ order.address }}
+              {% endif %}
+            </div>
+            {% endif %}
+            <div class="text-center mt-5">
+              <a href="{% url 'cart:home' %}" class="btn btn-primary">上一步</a>
+              <input type="submit" class="btn btn-primary" value="下一步">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+<!--{% block script %}-->
+<!--<script src={% static 'main/js/cart.js' %}></script>-->
+<!--{% endblock %}-->
