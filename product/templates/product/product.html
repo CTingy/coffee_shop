@@ -41,7 +41,8 @@
             {% endif %}
             {% if product.image %}
             <a href="{{ product.get_absolute_url }}">
-              <img class="card-img-top" src="{{ product.image.url }}" alt="{{ product.image }}">
+              <!--<img class="card-img-top" src="{{ product.image.url }}" alt="{{ product.image }}">-->
+              <img class="card-img-top" src="{% static 'main/img/08.jpg' %}" alt="{% static 'main/img/08.jpg' %}">
             </a>
             {% endif %}
             <div class="card-body">
