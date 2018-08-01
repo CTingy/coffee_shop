@@ -16,14 +16,14 @@ def contact(request):
     if not form.is_valid():
         return render(request, template, {'form': ContactForm()})
     form.save()
-    send_mail()
+    # send_mail()
     messages.success(request, '您的留言已送出，我們會盡快回覆您，謝謝')
     return redirect('product:product')
 
 
 def send_mail(mail=None):
     account = 'tingyunchan@gmail.com'
-    password = 'x06wu0x06'
+    password = ''
 
     smtp_obj = SMTP('smtp.gmail.com', 587)
     smtp_obj.ehlo()

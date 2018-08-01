@@ -96,15 +96,13 @@ def check_order(request):
     order_obj.done = True
     order_obj.timestamp = datetime.now()
     order_obj.save()
-    # del request.session['order_id']
-    # del request.session['cart_items']
     return redirect('cart:check_done')
 
 
 @login_required
 def check_done(request):
     order_obj, is_new = Order.objects.new_or_get(request)
-    send_mail(mail=order_obj.user.email)
+    # send_mail(mail=order_obj.user.email)
     del request.session['order_id']
     del request.session['cart_items']
     return render(request, 'order/check_done.html', {'order': order_obj})
