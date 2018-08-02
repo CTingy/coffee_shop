@@ -9,7 +9,7 @@ from datetime import datetime
 from product.models import Product
 from .models import Cart, Order
 from .forms import OrderForm
-from contact.views import send_mail
+# from contact.views import send_mail
 
 
 def update_cart_items(request):
@@ -80,17 +80,19 @@ def update_order(request):
         if request.GET.get('shop'):
             order_obj.shipping = 70
             order_obj.pay = '超商取貨付款'
-            order_obj.save()
         elif request.GET.get('self'):
             order_obj.shipping = 0
-            order_obj.address = '自取'
+            order_obj.address = ''
             order_obj.pay = '面交自取'
-            order_obj.save()
+        order_obj.save()
         form = OrderForm(instance=order_obj)
         return render(request, 'order/order_form.html', {'form': form, 'order': order_obj})
     # POST
     form = OrderForm(request.POST, instance=order_obj)
     if not form.is_valid():
+        return render(request, 'order/order_form.html', {'form': form, 'order': order_obj})
+    if order_obj.pay == '超商取貨付款' and not order_obj.address:
+        messages.error(request, '請選擇取貨店家')
         return render(request, 'order/order_form.html', {'form': form, 'order': order_obj})
     form.save()
     return redirect('cart:check_order')
