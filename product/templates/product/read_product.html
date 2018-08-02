@@ -18,11 +18,13 @@
           {% include 'cart/create_cart.html' with product=product %}
           </div>
           <h3 class="text-center">{{ product.title }}</h3>
-          {% if product.image %}
+          {# if product.image #}
           <!--<img class="rounded img-fluid my-3 mx-auto" width="800px" src="{{ product.image.url }}" alt="{{ product.image }}">-->
           <img class="rounded img-fluid my-3 mx-auto" width="800px" src="{% static 'main/img/08.jpg' %}" alt="{% static 'main/img/08.jpg' %}">
-          {% endif %}
-          <p>{{ product.content|linebreaks }}</p>
+          {# endif #}
+          <div class="text-center">
+            <p>{{ product.content|linebreaks }}</p>
+          </div>
         </div>
         <div class="card bg-faded rounded p-5">
           <h3 class="mb-5">留言區</h3>

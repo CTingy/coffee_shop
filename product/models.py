@@ -24,7 +24,7 @@ class Product(models.Model):
     title = models.CharField(max_length=128, unique=True)
     content = models.TextField(null=True, blank=True)
     price = models.IntegerField(default=300)
-    image = models.ImageField(upload_to=upload_image_path, default='product/2238217906.jpg', blank=True)
+    # image = models.ImageField(upload_to=upload_image_path, default='product/2238217906.jpg', blank=True)
 
     def __str__(self):
         return self.title
@@ -44,4 +44,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.product.title + '-' + str(self.id)
-
