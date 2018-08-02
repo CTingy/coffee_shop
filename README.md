@@ -24,7 +24,7 @@ you can shop on this website and comment the products.
   * User Login and Logout
   * Make orders
   * Send email to users when they get their orders' checking process done.
-  * Choose product receiving convenience stores with 'ezShip map API' in the order checking process.
+  * Choose product receiving convenience stores (shipping address) with '[ezShip map API](https://map.ezship.com.tw/ezship_map_web.jsp )' in the order checking process.
 
 * For guests
   * Add, update, delete products to the cart.
