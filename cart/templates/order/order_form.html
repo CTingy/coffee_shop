@@ -33,6 +33,7 @@
             <p><b>總價：</b> {{ order.subtotal }}元</p>
             <p><b>運費：</b> {{ order.shipping }}元</p>
             <p><b>總金額：</b> {{ order.total }}元</p>
+
             {% if order.pay == '超商取貨付款' %}
             <p class="inlineBlock"><b>寄送地址：</b></p>
             <form class="ship-ajax inlineBlock" action="https://map.ezship.com.tw/ezship_map_web.jsp" method="get">
@@ -45,6 +46,7 @@
               <input type="submit" value="選取店家" class="btn btn-success btn-sm">
             </form>
             {% endif %}
+
           </div>
           <hr class="my-5">
           <h3 class="mb-5">訂購資訊</h3>
