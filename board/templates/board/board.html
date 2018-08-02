@@ -10,7 +10,7 @@
     <div class="about-heading-content">
       <div class="row">
         <div class="col-xl-10 col-lg-10 mx-auto">
-          {% if user.is_superuser %}
+          {% if user.is_staff %}
           <div class="bg-faded rounded p-5">
             <p><a class="btn btn-success" href="{% url 'board:create_board' %}">新增公告</a></p>
           </div>
@@ -18,7 +18,7 @@
           <br><br>
           {% for board in boards %}
           <div class="bg-faded rounded p-5">
-            {% if user.is_superuser %}
+            {% if user.is_staff %}
             <div class="inlineBlock">
               <a class="btn btn-info" href="{% url 'board:update_board' board.id %}">修改</a>
             </div>

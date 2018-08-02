@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-xl-12 col-lg-10 mx-auto">
         <div class="card bg-faded rounded p-5 mb-4">
-          {% if user.is_superuser %}
+          {% if user.is_staff %}
           <div class="mb-3">
             <a class="btn btn-info" href="{% url 'product:update_product' product.id %}">修改</a>
           </div>

@@ -12,7 +12,7 @@ def main(request):
 
 def admin_required(func):
     def auth(request, *args, **kwargs):
-        if not request.user.is_superuser:
+        if not request.user.is_staff:
             messages.error(request, '請以管理者身份登入')
             return redirect(reverse('account:login') + '?next=' + request.get_full_path())
         return func(request, *args, **kwargs)
