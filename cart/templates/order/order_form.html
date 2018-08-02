@@ -33,7 +33,7 @@
             <p><b>總價：</b> {{ order.subtotal }}元</p>
             <p><b>運費：</b> {{ order.shipping }}元</p>
             <p><b>總金額：</b> {{ order.total }}元</p>
-            {% if not request.GET.self %}
+            {% if order.pay == '超商取貨付款' %}
             <p class="inlineBlock"><b>寄送地址：</b></p>
             <form class="ship-ajax inlineBlock" action="https://map.ezship.com.tw/ezship_map_web.jsp" method="get">
               <input type="hidden" name="suID" value="ke1905ro@yahoo.com">
