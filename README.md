@@ -3,14 +3,14 @@
 
 Deploy on Heroku.
 
-Url: https://a-hui-coffee.herokuapp.com/
+URL: https://a-hui-coffee.herokuapp.com/
 
 It is a E-commerce website built with Django.
 The website sales many kinds of roast coffee beans and 
 you can shop on this website and comment the products.
 
 ## Functions
-(send_email function has been banned by Google security)
+(send_email function has been banned by Google security after deploy on Heroku)
 
 * Only for admin
   * Create, update, delete products on the product pages.
