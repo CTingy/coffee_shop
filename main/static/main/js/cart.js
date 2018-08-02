@@ -24,28 +24,28 @@ $(document).ready(function(){
     })
 
 
-//    ezship api
-//    var orderForm = $(".order-form-ajax")
-//    orderForm.submit(function(event){
-//        console.log('asdfadafsdfa')
-//        event.preventDefault();
-//        var thisForm = $(this)
-//        var actionEndpoint = thisForm.attr("action");
-//        var httpMethod = thisForm.attr('method');
-//        var formData = thisForm.serialize();
-//
-//        $.ajax({
-//            url: actionEndpoint,
-//            method: httpMethod,
-//            data: formData,
-//            success: function(data){
-//                console.log('success')
-//            },
-//            error: function(errorData){
-//                console.log('error')
-//            }
-//        })
-//    })
+//  ezship api
+    var orderForm = $(".ship-ajax")
+    orderForm.submit(function(event){
+        console.log('asdfadafsdfa')
+        event.preventDefault();
+        var thisForm = $(this)
+        var actionEndpoint = thisForm.attr("action");
+        var httpMethod = thisForm.attr('method');
+        var formData = thisForm.serialize();
+
+        $.ajax({
+            url: actionEndpoint,
+            method: httpMethod,
+            data: formData,
+            success: function(data){
+                console.log('success')
+            },
+            error: function(errorData){
+                console.log('error')
+            }
+        })
+    })
 
 
     // change cart quantity input

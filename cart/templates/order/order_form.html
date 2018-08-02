@@ -35,12 +35,12 @@
             <p><b>總金額：</b> {{ order.total }}元</p>
             {% if not request.GET.self %}
             <p class="inlineBlock"><b>寄送地址：</b></p>
-            <form class="order-form-ajax inlineBlock" action="http://map.ezship.com.tw/ezship_map_web.jsp" method="get">
+            <form class="ship-ajax inlineBlock" action="https://map.ezship.com.tw/ezship_map_web.jsp" method="get">
               <input type="hidden" name="suID" value="ke1905ro@yahoo.com">
               <input type="hidden" name="processID" value="kiroLY">
               <input type="hidden" name="stCate" value="">
               <input type="hidden" name="stCode" value="">
-              <input type="hidden" name="rtURL" value="https://www.google.com.tw/webhp">
+              <input type="hidden" name="rtURL" value="https://a-hui-coffee.herokuapp.com/cart/update_order/">
               <input type="hidden" name="webPara" value="">
               <input type="submit" value="選取店家" class="btn btn-success btn-sm">
             </form>
