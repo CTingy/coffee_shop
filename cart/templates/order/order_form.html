@@ -40,8 +40,8 @@
               <input type="hidden" name="processID" value="kiroLY">
               <input type="hidden" name="stCate" value="">
               <input type="hidden" name="stCode" value="">
-              <input type="hidden" name="rtURL" value="https://a-hui-coffee.herokuapp.com/cart/update_order/">
-              <input type="hidden" name="webPara" value="{% csrf_token %}">
+              <input type="hidden" name="rtURL" value="https://a-hui-coffee.herokuapp.com/cart/ship/">
+              <input type="hidden" name="webPara" value="">
               <input type="submit" value="選取店家" class="btn btn-success btn-sm">
             </form>
             {% endif %}
@@ -58,8 +58,8 @@
             {% if not request.GET.self %}
             <div class="form-group" for="address">
               {% if order.address %}
-              <label>取貨門市：</label>
-              {{ order.address }}
+              <label for="username">取貨門市：</label>
+              <input type="text" class="form-control" id="address" value="{{ order.address }}" readonly>
               {% endif %}
             </div>
             {% endif %}

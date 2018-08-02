@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 from datetime import datetime
 
@@ -63,6 +64,15 @@ def delete_cart(request, cart_id):
 
 
 @login_required
+@csrf_exempt
+def ship_api(request):
+    order_obj, is_new = Order.objects.new_or_get(request)
+    order_obj.address = request.POST.get('stName')
+    order_obj.save()
+    return redirect('cart:update_order')
+
+
+@login_required
 def update_order(request):
     order_obj, is_new = Order.objects.new_or_get(request)
     # GET
@@ -82,7 +92,6 @@ def update_order(request):
     form = OrderForm(request.POST, instance=order_obj)
     if not form.is_valid():
         return render(request, 'order/order_form.html', {'form': form, 'order': order_obj})
-    order_obj.address = request.POST.get('stName')
     form.save()
     return redirect('cart:check_order')
 
