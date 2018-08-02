@@ -65,13 +65,6 @@ def delete_cart(request, cart_id):
 @login_required
 def update_order(request):
     order_obj, is_new = Order.objects.new_or_get(request)
-    if request.is_ajax():
-        print('yes post:', request.POST)
-        print('yes get:', request.GET)
-    else:
-        print('no post:', request.POST)
-        print('no get:', request.GET)
-
     # GET
     if request.method == 'GET':
         if request.GET.get('shop'):
@@ -89,7 +82,7 @@ def update_order(request):
     form = OrderForm(request.POST, instance=order_obj)
     if not form.is_valid():
         return render(request, 'order/order_form.html', {'form': form, 'order': order_obj})
-    order_obj.address = request.POST.get('address')
+    order_obj.address = request.POST.get('stName')
     form.save()
     return redirect('cart:check_order')
 
