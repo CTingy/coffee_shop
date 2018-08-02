@@ -24,10 +24,9 @@ $(document).ready(function(){
     })
 
 
-//  ezship api
+    // ezShip api
     var orderForm = $(".ship-ajax")
     orderForm.submit(function(event){
-        console.log('asdfadafsdfa')
         event.preventDefault();
         var thisForm = $(this)
         var actionEndpoint = thisForm.attr("action");
