@@ -54,6 +54,7 @@ $(document).ready(function(){
         var actionEndpoint = $(this).attr("data-href");
         var inputData = event.delegateTarget.value;
         var cartId = '#' + $(this).attr("name");
+        var cartClass = '.' + $(this).attr("name");
         var cartTotalEle = $(cartId);
         $.ajax({
             url: actionEndpoint,
@@ -61,8 +62,12 @@ $(document).ready(function(){
             data: {'quantity': inputData},
             success: function(data){
                 var navbarCount = $('.navbar-cart-count');
+                if (data.quantity === 0){
+                    $(cartClass).remove();
+                } else {
+                    cartTotalEle.text(data.cartTotal);
+                }
                 navbarCount.text(data.cartItemCount);
-                cartTotalEle.text(data.cartTotal);
             },
             error: function(errorData){
                 console.log('error')
@@ -75,7 +80,7 @@ $(document).ready(function(){
     var btn = $("input.btn-outline-danger")
     btn.on('click', function(){
         var actionEndpoint = $(this).attr("data-href");
-        var cartId = '.' + $(this).attr("name");
+        var cartClass = '.' + $(this).attr("name");
 
         $.ajax({
             url: actionEndpoint,
@@ -83,7 +88,7 @@ $(document).ready(function(){
             success: function(data){
                 var navbarCount = $('.navbar-cart-count');
                 navbarCount.text(data.cartItemCount);
-                $(cartId).remove();
+                $(cartClass).remove();
             },
             error: function(errorData){
                 console.log('error')

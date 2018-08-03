@@ -44,11 +44,19 @@ def update_cart(request, cart_id):
         return redirect('cart:home')
     # POST
     cart_obj = get_object_or_404(Cart, id=cart_id)
-    cart_obj.quantity = int(request.POST.get('quantity'))
-    cart_obj.save()
+    quantity = int(request.POST.get('quantity'))
+    if quantity == 0:
+        cart_obj.delete()
+    else:
+        cart_obj.quantity = quantity
+        cart_obj.save()
     count = update_cart_items(request)
     if request.is_ajax():
-        json_data = {'cartItemCount': count, 'cartTotal': cart_obj.total}
+        json_data = {
+            'cartItemCount': count,
+            'cartTotal': cart_obj.total,
+            'quantity': quantity,
+        }
         return JsonResponse(json_data)
     return redirect('cart:home')
 

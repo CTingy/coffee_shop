@@ -29,7 +29,7 @@
                 <td><a href="{{ cart.product.get_absolute_url }}">{{ cart.product.title }}</a></td>
                 <td>{{ cart.product.price }}</td>
                 <td>
-                  <input name="{{ cart.id }}" data-href="{% url 'cart:update' cart.id %}" class="input-ajax form-control btn-sm inlineBlock" style="width:50px;" type="number" min="1" max="10" value="{{ cart.quantity }}">
+                  <input name="{{ cart.id }}" data-href="{% url 'cart:update' cart.id %}" class="input-ajax form-control btn-sm inlineBlock" style="width:50px;" type="number" min="0" max="10" value="{{ cart.quantity }}">
                 </td>
                 <td id="{{ cart.id }}" class="{{ cart.total }}">{{ cart.total }}</td>
                 <td>
