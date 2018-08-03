@@ -54,6 +54,8 @@ def update_cart(request, cart_id):
 
 
 def delete_cart(request, cart_id):
+    if request.method == 'GET':
+        return home(request)
     cart_obj = get_object_or_404(Cart, id=cart_id)
     cart_obj.delete()
     count = update_cart_items(request)
