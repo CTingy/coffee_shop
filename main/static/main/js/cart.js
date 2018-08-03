@@ -16,6 +16,7 @@ $(document).ready(function(){
             success: function(data){
                 var navbarCount = $('.navbar-cart-count');
                 navbarCount.text(data.cartItemCount);
+                alert("商品已加入購物車");
             },
             error: function(errorData){
                 console.log('error')

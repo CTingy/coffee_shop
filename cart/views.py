@@ -91,10 +91,10 @@ def update_order(request):
     form = OrderForm(request.POST, instance=order_obj)
     if not form.is_valid():
         return render(request, 'order/order_form.html', {'form': form, 'order': order_obj})
+    form.save()
     if order_obj.pay == '超商取貨付款' and not order_obj.address:
         messages.error(request, '請選擇取貨店家')
         return render(request, 'order/order_form.html', {'form': form, 'order': order_obj})
-    form.save()
     return redirect('cart:check_order')
 
 
