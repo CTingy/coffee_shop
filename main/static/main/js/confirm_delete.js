@@ -1,5 +1,5 @@
-$(document).ready(function () {
-  $(document).on('click', '.deleteConfirm', function() {
-    return confirm("確定刪除?");
+$(document).ready(function() {
+  $('.deleteConfirm').on('click', function() {
+    return confirm("是否確定刪除?");
   });
 });
